@@ -56,7 +56,7 @@
   line-height: 1.5;
 }
 
-.contact-form {
+::deep .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
@@ -67,7 +67,7 @@
   flex-direction: column;
 }
 
-.contact-form__input {
+::deep .contact-form__input {
   width: 100%;
   background: var(--bg-panel);
   border: 1px solid var(--border-faint);
@@ -79,22 +79,22 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.contact-form__input::placeholder {
+::deep .contact-form__input::placeholder {
   color: var(--text-muted);
 }
 
-.contact-form__input:focus {
+::deep .contact-form__input:focus {
   outline: none;
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 3px rgba(95, 227, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(253, 198, 23, 0.15);
 }
 
-.contact-form__textarea {
+::deep .contact-form__textarea {
   resize: vertical;
   min-height: 120px;
 }
 
-.contact-form__error {
+::deep .contact-form__error {
   color: #ff7a8a;
   font-size: 0.78rem;
   margin-top: 0.35rem;

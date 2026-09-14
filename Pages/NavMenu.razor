@@ -7,14 +7,7 @@
 <header class="navbar">
     <div class="container navbar__inner">
         <a href="/" class="navbar__brand">
-            <span class="navbar__logo-mark">
-                <img src="/Images/DopedLogo.png" alt="Alternate Text" />
-            </span>
-            
-            <span class="navbar__logo-text">
-               
-            </span>
-            <img class = "Logo_name" src="/Images/text-logo.png" alt="Alternate Text" />
+            <img class="navbar__logo-full" src="/Images/VectorGamingLogo.png" alt="Vector Gaming" />
         </a>
 
         <nav class="navbar__links" aria-label="Main navigation">
@@ -23,8 +16,8 @@
                 {
                     <li>
                         <a href="@link.Href"
-                           @onclick="@(link.IsCta ? () => Nav.NavigateTo(link.Href) : null)"
-                           @onclick:preventDefault="@link.IsCta"
+                           @onclick="@(link.IsRoute ? () => Nav.NavigateTo(link.Href) : null)"
+                           @onclick:preventDefault="@link.IsRoute"
                            class="@(link.IsCta ? "navbar__link navbar__link--cta" : link.IsActive ? "navbar__link navbar__link--active" : "navbar__link")">
                             @if (link.IsCta)
                             {
@@ -55,7 +48,7 @@
                     <li>
                         <a href="@link.Href"
                            @onclick="@(() => HandleMobileClick(link))"
-                           @onclick:preventDefault="@link.IsCta"
+                           @onclick:preventDefault="@link.IsRoute"
                            class="@(link.IsCta ? "navbar__mobile-cta" : "")">
                             @link.Label
                         </a>
@@ -69,7 +62,10 @@
 @code {
     private bool _mobileMenuOpen = false;
 
-    private record NavLink(string Label, string Href, bool IsActive = false, bool IsCta = false);
+    private record NavLink(string Label, string Href, bool IsActive = false, bool IsCta = false)
+    {
+        public bool IsRoute => Href.StartsWith("/");
+    }
 
     private readonly List<NavLink> NavLinks = new()
     {
@@ -79,13 +75,13 @@
         new("About",     "#about"),
         new("Career",    "#career"),
         new("Contact",   "#contact"),
-        new("Play Game", "/play-game", IsCta: true),
+        new("Play Game", "#portfolio", IsCta: true),
     };
 
     private void HandleMobileClick(NavLink link)
     {
         _mobileMenuOpen = false;
-        if (link.IsCta)
+        if (link.IsRoute)
             Nav.NavigateTo(link.Href);
     }
 

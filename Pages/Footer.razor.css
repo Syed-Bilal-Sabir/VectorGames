@@ -21,6 +21,12 @@
   gap: 0.6rem;
 }
 
+.site-footer__logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
 .site-footer__copy {
   font-size: 0.82rem;
   color: var(--text-muted);

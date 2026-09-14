@@ -1,5 +1,0 @@
-D:\NewDopeWebsite\publish\wwwroot\index.html
-D:\NewDopeWebsite\publish\vercel.json
-D:\NewDopeWebsite\publish\DopeWebsite.runtimeconfig.json
-D:\NewDopeWebsite\publish\dotnet.js
-D:\NewDopeWebsite\publish\web.config

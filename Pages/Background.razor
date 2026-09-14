@@ -1,6 +1,10 @@
 ﻿@inject IJSRuntime JSRuntime
 @implements IAsyncDisposable
 
+@* Ambient background video. Drop a Vector Gaming branded clip in wwwroot/videos/
+   named "VectorGamingBg.mp4" and it will start playing automatically here.
+   Until then this gracefully falls back to the dark starfield/gradient
+   background defined on .app-shell in site.css. *@
 <div class="video-bg-container">
     <div class="video-bg-overlay"></div>
 
@@ -11,7 +15,7 @@
            loop
            playsinline
            >
-        <source src="videos/Dope Game Theme.mp4" type="video/mp4" />
+        <source src="videos/VectorGamingBg.mp4" type="video/mp4" />
         Your browser does not support the video tag.
     </video>
 </div>
