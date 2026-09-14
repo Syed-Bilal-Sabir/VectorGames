@@ -1,0 +1,100 @@
+@* ==========================================================================
+   Contact.razor — "Let's build something amazing together" section
+   ========================================================================== *@
+
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-eyebrow">04</span>
+            <h2 class="section-title">CONTACT US</h2>
+        </div>
+        <p class="section-subtitle">Let's build something amazing together!</p>
+
+        <div class="contact__grid">
+            <div class="contact__info">
+                @foreach (var item in ContactItems)
+                {
+                    <div class="contact-info-row">
+                        <span class="contact-info-row__icon" aria-hidden="true">@((MarkupString)item.IconSvg)</span>
+                        <div>
+                            <p class="contact-info-row__label">@item.Label</p>
+                            <p class="contact-info-row__value">@((MarkupString)item.Value)</p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <EditForm Model="@_model" OnValidSubmit="HandleSubmit" class="contact-form">
+                <DataAnnotationsValidator />
+
+                <div class="contact-form__field">
+                    <InputText @bind-Value="_model.Name" placeholder="Your Name" class="contact-form__input" />
+                    <ValidationMessage For="@(() => _model.Name)" class="contact-form__error" />
+                </div>
+
+                <div class="contact-form__field">
+                    <InputText @bind-Value="_model.Email" placeholder="Your Email" class="contact-form__input" />
+                    <ValidationMessage For="@(() => _model.Email)" class="contact-form__error" />
+                </div>
+
+                <div class="contact-form__field">
+                    <InputTextArea @bind-Value="_model.Message" placeholder="Your Message" rows="5" class="contact-form__input contact-form__textarea" />
+                    <ValidationMessage For="@(() => _model.Message)" class="contact-form__error" />
+                </div>
+
+                <button type="submit" class="btn btn-primary contact-form__submit" disabled="@_isSubmitting">
+                    @(_isSubmitting ? "SENDING..." : "SEND MESSAGE") <span class="btn-icon">→</span>
+                </button>
+
+                @if (_submitted)
+                {
+                    <p class="contact-form__success" role="status">Thanks! Your message has been sent.</p>
+                }
+            </EditForm>
+        </div>
+    </div>
+</section>
+
+@code {
+    private readonly ContactModel _model = new();
+    private bool _isSubmitting = false;
+    private bool _submitted = false;
+
+    private record ContactItem(string Label, string Value, string IconSvg);
+
+    private readonly List<ContactItem> ContactItems = new()
+    {
+        // new("Email", "hr@glitchtech.com",
+        //     "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><rect x='2' y='5' width='20' height='14' rx='2'/><path d='M2 7l10 6 10-6'/></svg>"),
+        new("Phone", "+370 66448847 <br/>+420 737888488 ",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M3 5a2 2 0 012-2h2l2 5-2 1a11 11 0 005 5l1-2 5 2v2a2 2 0 01-2 2A16 16 0 013 5z'/></svg>"),
+        new("Location", "Lithuania Prienų R.sav.,Balbieriskis,Klevų G.<br/>25-22 Lithuania",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M12 21s7-7.4 7-12a7 7 0 10-14 0c0 4.6 7 12 7 12z'/><circle cx='12' cy='9' r='2.3'/></svg>"),
+        new("Location", "Praha 1,Rybna 716/24.<br/>Czech Republic Office",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M12 21s7-7.4 7-12a7 7 0 10-14 0c0 4.6 7 12 7 12z'/><circle cx='12' cy='9' r='2.3'/></svg>"),
+        new("Working Hours", "Mon - Fri: 9:00 AM - 6:00 PM",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 3'/></svg>"),
+    };
+
+    private async Task HandleSubmit()
+    {
+        _isSubmitting = true;
+        // TODO: wire up to your backend / email service (e.g. an API endpoint or SendGrid call)
+        await Task.Delay(600);
+        _isSubmitting = false;
+        _submitted = true;
+    }
+
+    public class ContactModel
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please enter your name")]
+        public string Name { get; set; } = string.Empty;
+
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please enter your email")]
+        [System.ComponentModel.DataAnnotations.EmailAddress(ErrorMessage = "Enter a valid email")]
+        public string Email { get; set; } = string.Empty;
+
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please enter a message")]
+        public string Message { get; set; } = string.Empty;
+    }
+}

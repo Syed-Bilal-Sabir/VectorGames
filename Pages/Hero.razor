@@ -1,0 +1,85 @@
+@* ==========================================================================
+   Hero.razor — "We build game experiences" hero section
+   ========================================================================== *@
+@inject IJSRuntime JSRuntime
+@implements IAsyncDisposable
+<section class="hero" id="home">
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <div class="container hero__grid">
+        <div class="hero__content">
+            <p class="hero__eyebrow">
+                We build<br />
+                game experiences<br />
+                adventures
+            </p>
+
+            <h1 class="hero__title">
+                WE BUILD<br />
+                GAME <span class="hero__title--cyan">EXPERIENCES</span><br />
+                <span class="hero__title--violet">ADVENTURES</span>
+            </h1>
+
+            <p class="hero__description">
+                At Doped Games, we transform ideas into immersive games. From concept to
+                creation, we craft experiences that inspire players worldwide.
+            </p>
+
+            <a href="#portfolio" class="btn btn-primary">
+                READ MORE <span class="btn-icon">→</span>
+            </a>
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+            @* <div class="hero__controller-placeholder gradient-placeholder">
+                
+                
+            </div> *@
+            @* <div class="Console-placeholder">
+                <img src="Images/console.png" alt="Description of image">
+            </div> *@
+            <div class="VideoConsole-placeholder">
+                <video autoplay muted loop playsinline>
+                    <source src="videos/ConsoleAnim.webm" type="video/webm" />
+                </video>
+            </div>
+            @* <span class="floating-label hero__label--levelup">LEVEL UP</span> *@
+        </div>
+    </div>
+
+    <div class="hero__floating-words" aria-hidden="true">
+        <span class="floating-label hero__label--create">CREATE<br />PLAY<br />INSPIRE</span>
+    </div>
+
+    <!-- Decorative city skyline strip -->
+    <div class="hero__skyline gradient-placeholder" aria-hidden="true"></div>
+</section>
+
+
+@code {
+    private ElementReference videoElement;
+    private IJSObjectReference? module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Initialize the scroll tracking script
+            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/videoScroll.js");
+            await module.InvokeVoidAsync("initVideoScroll", videoElement);
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (module is not null)
+        {
+            try
+            {
+                await module.InvokeVoidAsync("destroyVideoScroll");
+                await module.DisposeAsync();
+            }
+            catch (JSDisconnectedException) { }
+        }
+   
+    }   }

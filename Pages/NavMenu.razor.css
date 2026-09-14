@@ -1,0 +1,138 @@
+/* ==========================================================================
+   NavMenu.razor.css — Navigation bar styles
+   ========================================================================== */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6, 5, 20, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-faint);
+}
+
+.navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content:space-between ;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    
+    
+}
+
+.navbar__brand {
+    display: flex;
+    align-items:  safe center;
+    gap: 0.2rem;
+    
+}
+
+.navbar__logo-mark {
+    width: 100px;
+    height: 100px;
+    border-radius: 2px;
+    
+/*    background: var(--grad-brand);*/
+/*    box-shadow: var(--shadow-glow-blue);*/
+}
+
+
+
+.navbar__logo-text {
+    
+        font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+}
+
+.navbar__links ul {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+}
+
+.navbar__link {
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+    .navbar__link:hover {
+        color: var(--text-primary);
+    }
+
+.navbar__link--active {
+    color: var(--text-primary);
+}
+
+    .navbar__link--active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -0.6rem;
+        height: 2px;
+        background: var(--grad-text);
+        border-radius: 2px;
+    }
+
+.navbar__menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+}
+
+    .navbar__menu-toggle span {
+        width: 22px;
+        height: 2px;
+        background: var(--text-primary);
+        border-radius: 2px;
+    }
+
+.navbar__mobile {
+    display: none;
+    border-top: 1px solid var(--border-faint);
+    background: var(--bg-deep);
+}
+
+    .navbar__mobile ul {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 2rem 1.5rem;
+        gap: 1rem;
+    }
+
+    .navbar__mobile a {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+    }
+
+@media (max-width: 900px) {
+    .navbar__links {
+        display: none;
+    }
+
+    .navbar__menu-toggle {
+        display: flex;
+    }
+
+    .navbar__mobile {
+        display: block;
+    }
+}
+.Logo_name {
+    width: 200px;
+    height: 50px;
+    border-radius: 0px;
+    margin-top:5%;
+}

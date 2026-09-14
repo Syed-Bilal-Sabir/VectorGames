@@ -1,0 +1,47 @@
+@* ==========================================================================
+   Portfolio.razor — "Games that we're proud of" section
+   ========================================================================== *@
+@inject NavigationManager Nav
+
+<section class="portfolio" id="portfolio">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-eyebrow">02</span>
+            <h2 class="section-title">PORTFOLIO</h2>
+        </div>
+        <p class="section-subtitle">Games that we're proud of</p>
+
+        <div class="portfolio__grid">
+            @foreach (var game in Games)
+            {
+                <article class="portfolio-card" @onclick="@(() => Nav.NavigateTo($"/play-game/{game.Id}"))">
+                    <div class="portfolio-card__art gradient-placeholder"
+                         style="background-image: @game.GradientCss;"
+                         aria-hidden="true">
+                        <img src="@game.ImageUrl" alt="@game.Title" />
+                    </div>
+                    <div class="portfolio-card__info">
+                        <h3 class="portfolio-card__title">@game.Title</h3>
+                        <p class="portfolio-card__genre">@game.Genre</p>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+
+    <span class="floating-label portfolio__label--nextlevel">NEXT<br />— —<br />LEVEL</span>
+</section>
+
+@code {
+    private record Game(string Id, string Title, string Genre, string GradientCss, string ImageUrl);
+
+    private readonly List<Game> Games = new()
+    {
+        new("tyche",  "TYCHE",  "Slot / Casino",        "linear-gradient(135deg, #1fd0ff, #1a3a7a)", "Images/portfolio1.png"),
+        new("beach",  "BEACH",  "Slot / Casino",        "linear-gradient(135deg, #ff7a3d, #3a1a4a)", "Images/portfolio2.png"),
+        new("norse",  "NORSE",  "Slot / Casino",       "linear-gradient(135deg, #2e6bff, #0a1030)", "Images/portfolio3.png"),
+        new("soccer", "SOCCER", "Slot / Casino",       "linear-gradient(135deg, #ff5a2e, #1a0a0a)", "Images/portfolio4.png"),
+        new("pet",    "PET",    "Slot / Casino",       "linear-gradient(135deg, #b06aff, #1a1a3a)", "Images/portfolio5.png"),
+        new("wild",    "Wild West",    "Slot / Casino",       "linear-gradient(135deg, #b06aff, #1a1a3a)", "Images/portfolio6.png"),
+    };
+}

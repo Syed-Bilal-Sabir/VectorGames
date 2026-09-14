@@ -1,0 +1,44 @@
+@* ==========================================================================
+   Services.razor — "What we do best" section
+   ========================================================================== *@
+
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-eyebrow">03</span>
+            <h2 class="section-title">SERVICES</h2>
+        </div>
+        <p class="section-subtitle">What we do best</p>
+
+        <div class="services__grid">
+            @foreach (var service in ServiceList)
+            {
+                <div class="service-card">
+                    <div class="service-card__icon" aria-hidden="true">@((MarkupString)service.IconSvg)</div>
+                    <h3 class="service-card__title">@service.Title</h3>
+                    <p class="service-card__desc">@service.Description</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    private record Service(string Title, string Description, string IconSvg);
+
+    private readonly List<Service> ServiceList = new()
+    {
+        new("GAME DESIGN",
+            "Creative game design that engages and excites players.",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><rect x='2' y='7' width='20' height='10' rx='4'/><path d='M7 12h.01M7 9.5v5M5 12h4'/><circle cx='16' cy='10.5' r='1'/><circle cx='18.5' cy='13' r='1'/></svg>"),
+        new("GAME DEVELOPMENT",
+            "End-to-end development using the latest tools and technologies.",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M9 18l-6-6 6-6M15 6l6 6-6 6'/></svg>"),
+        new("ART & ANIMATION",
+            "Stunning pixel art and animations that bring worlds to life.",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><rect x='4' y='4' width='4' height='4'/><rect x='10' y='4' width='4' height='4'/><rect x='16' y='4' width='4' height='4'/><rect x='4' y='10' width='4' height='4'/><rect x='16' y='10' width='4' height='4'/><rect x='4' y='16' width='4' height='4'/><rect x='10' y='16' width='4' height='4'/><rect x='16' y='16' width='4' height='4'/></svg>"),
+        new("PUBLISHING",
+            "Publishing support to bring your game to global audiences.",
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z'/></svg>"),
+    };
+}

@@ -1,0 +1,94 @@
+﻿@* ==========================================================================
+   NavMenu.razor — Top navigation bar
+   ========================================================================== *@
+
+@inject NavigationManager Nav
+
+<header class="navbar">
+    <div class="container navbar__inner">
+        <a href="/" class="navbar__brand">
+            <span class="navbar__logo-mark">
+                <img src="/Images/DopedLogo.png" alt="Alternate Text" />
+            </span>
+            
+            <span class="navbar__logo-text">
+               
+            </span>
+            <img class = "Logo_name" src="/Images/text-logo.png" alt="Alternate Text" />
+        </a>
+
+        <nav class="navbar__links" aria-label="Main navigation">
+            <ul>
+                @foreach (var link in NavLinks)
+                {
+                    <li>
+                        <a href="@link.Href"
+                           @onclick="@(link.IsCta ? () => Nav.NavigateTo(link.Href) : null)"
+                           @onclick:preventDefault="@link.IsCta"
+                           class="@(link.IsCta ? "navbar__link navbar__link--cta" : link.IsActive ? "navbar__link navbar__link--active" : "navbar__link")">
+                            @if (link.IsCta)
+                            {
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="navbar__play-icon">
+                                    <polygon points="5 3 19 12 5 21 5 3" />
+                                </svg>
+                            }
+                            @link.Label
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+        <button class="navbar__menu-toggle" @onclick="ToggleMobileMenu" aria-label="Toggle navigation menu" aria-expanded="@_mobileMenuOpen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    @if (_mobileMenuOpen)
+    {
+        <nav class="navbar__mobile" aria-label="Mobile navigation">
+            <ul>
+                @foreach (var link in NavLinks)
+                {
+                    <li>
+                        <a href="@link.Href"
+                           @onclick="@(() => HandleMobileClick(link))"
+                           @onclick:preventDefault="@link.IsCta"
+                           class="@(link.IsCta ? "navbar__mobile-cta" : "")">
+                            @link.Label
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</header>
+
+@code {
+    private bool _mobileMenuOpen = false;
+
+    private record NavLink(string Label, string Href, bool IsActive = false, bool IsCta = false);
+
+    private readonly List<NavLink> NavLinks = new()
+    {
+        new("Home",      "#home",      IsActive: true),
+        new("Portfolio", "#portfolio"),
+        new("Service",   "#services"),
+        new("About",     "#about"),
+        new("Career",    "#career"),
+        new("Contact",   "#contact"),
+        new("Play Game", "/play-game", IsCta: true),
+    };
+
+    private void HandleMobileClick(NavLink link)
+    {
+        _mobileMenuOpen = false;
+        if (link.IsCta)
+            Nav.NavigateTo(link.Href);
+    }
+
+    private void ToggleMobileMenu() => _mobileMenuOpen = !_mobileMenuOpen;
+    private void CloseMobileMenu() => _mobileMenuOpen = false;
+}

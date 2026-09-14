@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Hero.razor.css — Hero section styles
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding-top: 4.5rem;
+  overflow: hidden;
+}
+
+.hero__glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: var(--grad-glow);
+  filter: blur(10px);
+  z-index: 0;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 2rem;
+  min-height: 460px;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-label);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+  margin-bottom: 1.6rem;
+}
+
+.hero__title--cyan {
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__title--violet {
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__description {
+  max-width: 420px;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  margin-bottom: 2.3rem;
+}
+
+.hero__art {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+.hero__controller-placeholder {
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 16 / 11;
+  border-radius: var(--radius-lg);
+  background-image: linear-gradient(135deg, rgba(62,200,240,0.18), rgba(139,92,246,0.18), rgba(214,95,209,0.15));
+  border: 1px dashed var(--border-soft);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.hero__label--levelup {
+  position: absolute;
+  top: 8%;
+  left: 4%;
+}
+
+.hero__floating-words {
+  position: absolute;
+  left: 2rem;
+  bottom: 18%;
+  z-index: 1;
+}
+
+.hero__label--create {
+  font-size: 0.8rem;
+}
+
+.hero__skyline {
+  width: 100%;
+  height: 260px;
+  margin-top: 1.5rem;
+  background-image: linear-gradient(180deg, rgba(20,14,54,0) 0%, rgba(76,42,166,0.35) 55%, rgba(20,14,54,0.05) 100%);
+  border-top: 1px solid var(--border-faint);
+}
+
+@media (max-width: 980px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .hero__art { min-height: 280px; order: -1; }
+  .hero__floating-words { display: none; }
+}
+
+@media (max-width: 560px) {
+  .hero__title { font-size: 2rem; }
+  .hero__skyline { height: 220px; }
+}
+
